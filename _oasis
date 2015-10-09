@@ -18,7 +18,8 @@ Library               launchd
 Library               launchd_lwt
   Path:               lwt
   Modules:            Lwt_launchd
-  BuildDepends:       launchd, lwt, lwt.preemptive, threads
+  BuildDepends:       launchd, lwt, lwt.unix, cstruct, cstruct.lwt
+  CSources:           launchd_stubs.c
   Findlibname:        lwt
   Findlibparent:      launchd
 
@@ -43,3 +44,9 @@ Executable            example
   Path:               example
   MainIs:             example.ml
   BuildDepends:       launchd
+
+Executable            example_lwt
+  CompiledObject:     best
+  Path:               example
+  MainIs:             example_lwt.ml
+  BuildDepends:       launchd.lwt
