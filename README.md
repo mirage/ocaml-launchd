@@ -4,6 +4,9 @@ OCaml bindings to the launchd API
 This library is useful if you wish to make a service which is
 automatically started by launchd.
 
+Please read
+[the API documentation](http://djs55.github.io/ocaml-launchd/).
+
 Example
 -------
 
