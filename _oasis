@@ -13,3 +13,9 @@ Library               launchd
   Modules:            Launchd
   BuildDepends:       unix, result
   CSources:           launchd_stubs.c
+
+Executable            example
+  CompiledObject:     best
+  Path:               example
+  MainIs:             example.ml
+  BuildDepends:       launchd
