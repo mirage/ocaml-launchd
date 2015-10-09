@@ -15,6 +15,13 @@ Library               launchd
   Findlibname:        launchd
   CSources:           launchd_stubs.c
 
+Library               launchd_lwt
+  Path:               lwt
+  Modules:            Lwt_launchd
+  BuildDepends:       launchd, lwt, lwt.preemptive, threads
+  Findlibname:        lwt
+  Findlibparent:      launchd
+
 Document launchd
   Title:                Launchd bindings
   Type:                 ocamlbuild (0.3)
@@ -22,6 +29,14 @@ Document launchd
   Install:              true
   XOCamlbuildPath:      lib
   XOCamlbuildLibraries: launchd
+
+Document lwt_launchd
+  Title:                Launchd Lwt bindings
+  Type:                 ocamlbuild (0.3)
+  BuildTools+:          ocamldoc
+  Install:              true
+  XOCamlbuildPath:      lwt
+  XOCamlbuildLibraries: launchd.lwt
 
 Executable            example
   CompiledObject:     best

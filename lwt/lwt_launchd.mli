@@ -17,36 +17,11 @@
 
 (** Allow an application to be managed by launchd.
 
-Launchd is a daemon managment system used on OS X. Launchd can listen
-for incoming connections on sockets and spawn your server on demand.
-This module allows your application to retrieve the listening sockets
-created by launchd.
-
-Please read the following documents:
-
-{ol
-{li
-{{:https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html}
-Creating Launch Daemons and Agents}
-}
-{li
-{{: https://developer.apple.com/library/mac/technotes/tn2083/_index.html}
-Apple Technical Note TN2083: Daemons and Agents
-}}
-}
 *)
 
-type error = [
-| `Enoent of string (** The given name was not found *)
-| `Esrch            (** This process is not managed by launchd *)
-| `Ealready         (** The socket has already been activated *)
-]
+open Launchd
 
-type 'a result = ('a, error) Result.result
-
-val error_to_msg: 'a result -> ('a, [ `Msg of string ]) Result.result
-
-val activate_socket: string -> Unix.file_descr list result
+val activate_socket: string -> Lwt_unix.file_descr list result Lwt.t
 (** [activate_socket name]: retrieve the file descriptors for the sockets
     associated with the given [name] in the .plist file. This should be
     called once per invocation; subsequent calls will fail with [`Ealready].

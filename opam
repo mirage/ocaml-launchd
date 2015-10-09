@@ -21,6 +21,7 @@ remove: [["ocamlfind" "remove" "launchd"]]
 
 depends: [
   "result"
+  "lwt"
   "ocamlfind" {build}
   "oasis" {build}
 ]
