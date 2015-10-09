@@ -14,3 +14,20 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
  *)
+
+
+ type error = [
+ | `Enoent of string
+ | `Esrch
+ | `Ealready
+ ]
+
+ type 'a result = ('a, error) Result.result
+
+let error_to_msg = function
+  | Result.Ok x -> Result.Ok x
+  | Result.Error (`Enoent x) -> Result.Error (`Msg ("There was no socket named " ^ x))
+  | Result.Error `Esrch -> Result.Error (`Msg "This process is not managed by launchd")
+  | Result.Error `Ealready -> Result.Error (`Msg "The socket has already been activated")
+
+let activate_socket name = Result.Error `Ealready

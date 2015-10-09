@@ -14,3 +14,19 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
  *)
+
+(** Allow an application to be managed by launchd *)
+
+type error = [
+| `Enoent of string (** The given name was not found *)
+| `Esrch            (** This process is not managed by launchd *)
+| `Ealready         (** The socket has already been activated *)
+]
+
+type 'a result = ('a, error) Result.result
+
+val error_to_msg: 'a result -> ('a, [ `Msg of string ]) Result.result
+
+val activate_socket: string -> Unix.file_descr list result
+(** [activate_socket name]: retrieve the file descriptors for the sockets
+    associated with the given [name] in the .plist file. *)
