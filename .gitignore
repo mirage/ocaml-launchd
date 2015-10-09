@@ -14,5 +14,6 @@ configure
 lib/META
 lib/launchd.mldylib
 lib/launchd.mllib
+lib/liblaunchd_stubs.clib
 myocamlbuild.ml
 setup.ml

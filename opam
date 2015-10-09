@@ -21,10 +21,7 @@ remove: [["ocamlfind" "remove" "launchd"]]
 
 depends: [
   "result"
-  "ctypes"
-  "ctypes-foreign"
   "ocamlfind" {build}
   "oasis" {build}
 ]
 build-doc: ["ocaml" "setup.ml" "-doc"]
-

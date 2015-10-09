@@ -11,4 +11,5 @@ Plugins:      DevFiles (0.3), META (0.3)
 Library               launchd
   Path:               lib
   Modules:            Launchd
-  BuildDepends:       ctypes (>= 0.3.0), ctypes.foreign, result
+  BuildDepends:       unix, result
+  CSources:           launchd_stubs.c

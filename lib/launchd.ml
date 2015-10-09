@@ -30,4 +30,16 @@ let error_to_msg = function
   | Result.Error `Esrch -> Result.Error (`Msg "This process is not managed by launchd")
   | Result.Error `Ealready -> Result.Error (`Msg "The socket has already been activated")
 
-let activate_socket name = Result.Error `Ealready
+module LowLevel = struct
+  external launch_activate_socket: string -> Unix.file_descr array = "stub_launch_activate_socket"
+end
+
+let activate_socket name =
+  try
+    Result.Ok (Array.to_list (LowLevel.launch_activate_socket name))
+  with Unix.Unix_error(Unix.ENOENT, _, _) ->
+    Result.Error (`Enoent name)
+  | Unix.Unix_error(Unix.ESRCH, _, _) ->
+    Result.Error `Esrch
+  | Unix.Unix_error(Unix.EALREADY, _, _) ->
+    Result.Error `Ealready
