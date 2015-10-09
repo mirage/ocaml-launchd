@@ -17,13 +17,13 @@ Assuming you are running under OS X, install the example services
 as LaunchAgents for the current user:
 
 ```sh
-./install-example.sh
+$ ./install-example.sh
 ```
 
 Check the agents have registered:
 
 ```sh
-launchctl list | grep org.recoil
+$ launchctl list | grep org.recoil
 34787	0	org.recoil.dave.anotherd
 -	0	org.recoil.dave.exampled
 ```
@@ -51,5 +51,5 @@ srw-rw-rw-  1 djs  staff  0  9 Oct 14:06 /var/run/org.recoil.dave.exampled
 Run this script to remove the agents:
 
 ```sh
-./uninstall-example.sh
+$ ./uninstall-example.sh
 ```
