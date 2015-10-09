@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Launchd" rel="Chapter" href="Launchd.html"><title>Launchd</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Launchd.html">Launchd</a></h1>
+
+<pre><span class="keyword">module</span> Launchd: <code class="code">sig</code> <a href="Launchd.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Allow an application to be managed by launchd.
+<p>
+
+Launchd is a daemon managment system used on OS X. Launchd can listen
+for incoming connections on sockets and spawn your server on demand.
+This module allows your application to retrieve the listening sockets
+created by launchd.
+<p>
+
+Please read the following documents:
+<p>
+
+<OL>
+<li><a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">
+Creating Launch Daemons and Agents</a>
+</li>
+<li><a href=" https://developer.apple.com/library/mac/technotes/tn2083/_index.html">
+Apple Technical Note TN2083: Daemons and Agents
+</a></li>
+</OL>
+<br>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = <code class="type">[ `Ealready | `Enoent of string | `Esrch ]</code> </pre>
+
+
+<pre><span id="TYPEresult"><span class="keyword">type</span> <code class="type">'a</code> result</span> = <code class="type">('a, <a href="Launchd.html#TYPEerror">error</a>) Result.result</code> </pre>
+
+
+<pre><span id="VALerror_to_msg"><span class="keyword">val</span> error_to_msg</span> : <code class="type">'a <a href="Launchd.html#TYPEresult">result</a> -> ('a, [ `Msg of string ]) Result.result</code></pre>
+<pre><span id="VALactivate_socket"><span class="keyword">val</span> activate_socket</span> : <code class="type">string -> Unix.file_descr list <a href="Launchd.html#TYPEresult">result</a></code></pre><div class="info ">
+<code class="code">activate_socket name</code>: retrieve the file descriptors for the sockets
+    associated with the given <code class="code">name</code> in the .plist file. This should be
+    called once per invocation; subsequent calls will fail with <code class="code">`Ealready</code>.
+<p>
+
+    For example, in the following .plist, <code class="code">name</code> should be <code class="code">"Listener"</code>:
+    <pre class="codepre"><code class="code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+        &lt;key&gt;Label&lt;/key&gt;
+        &lt;string&gt;org.recoil.dave.anotherd&lt;/string&gt;
+        &lt;key&gt;ProgramArguments&lt;/key&gt;
+        &lt;array&gt;
+                &lt;string&gt;/path/to/binary&lt;/string&gt;
+        &lt;/array&gt;
+        &lt;key&gt;Sockets&lt;/key&gt;
+        &lt;dict&gt;
+
+                &lt;key&gt;Listener&lt;/key&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;SockServiceName&lt;/key&gt;
+                        &lt;string&gt;8081&lt;/string&gt;
+                        &lt;key&gt;SockType&lt;/key&gt;
+                        &lt;string&gt;stream&lt;/string&gt;
+                        &lt;key&gt;SockFamily&lt;/key&gt;
+                        &lt;string&gt;IPv4&lt;/string&gt;
+                &lt;/dict&gt;
+        &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+    </code></pre>
+    Please note that launchd may bind multiple sockets (e.g. one for IPv4
+    and another for IPv6) and so the application must handle all the sockets
+    returned by the call.
+<p>
+
+    This call fails with:
+    <ul>
+<li> <code class="code">`Enoent name</code> if <code class="code">name</code> could not be found in the .plist.</li>
+<li><code class="code">`Esrch</code> if this process is not being managed by launchd
+    (for example if it is running from a terminal).</li>
+<li><code class="code">`Ealready</code> if the socket has already been activated.</li>
+</ul>
+<br>
+</div>
+</body></html>
