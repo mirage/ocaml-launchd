@@ -2,5 +2,7 @@ language: c
 install: wget https://raw.githubusercontent.com/ocaml/ocaml-travisci-skeleton/master/.travis-opam.sh
 script: bash -ex .travis-opam.sh
 sudo: required
+os:
+  - osx
 env:
   - PACKAGE="launchd" OCAML_VERSION=4.02
