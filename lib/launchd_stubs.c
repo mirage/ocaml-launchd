@@ -20,6 +20,7 @@
 #include <caml/alloc.h>
 #include <caml/custom.h>
 #include <caml/fail.h>
+#include <caml/threads.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -34,8 +35,12 @@ value stub_launch_activate_socket(value name) {
   const char *c_name = strdup(String_val(name));
   int *listening_fds = NULL;
   size_t n_listening_fds = 0;
+  int err;
 
-  int err = launch_activate_socket(c_name, &listening_fds, &n_listening_fds);
+  caml_release_runtime_system();
+  err = launch_activate_socket(c_name, &listening_fds, &n_listening_fds);
+  caml_acquire_runtime_system();
+
   free((void*)c_name);
 
   switch (err) {
