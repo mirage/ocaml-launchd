@@ -12,6 +12,7 @@ tags: [
 ]
 
 build: [
+  ["oasis" "setup"]
   [make "PREFIX=%{prefix}%"]
 ]
 
