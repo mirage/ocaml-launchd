@@ -12,6 +12,7 @@ tags: [
 ]
 
 build: [
+  ["oasis" "setup"]
   [make "PREFIX=%{prefix}%"]
 ]
 
@@ -22,6 +23,7 @@ remove: [["ocamlfind" "remove" "launchd"]]
 depends: [
   "result"
   "lwt"
+  "cstruct"
   "ocamlfind" {build}
   "oasis" {build}
 ]
