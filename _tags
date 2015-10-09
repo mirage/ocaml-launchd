@@ -1,0 +1,62 @@
+# OASIS_START
+# DO NOT EDIT (digest: 938c2b49c7d2a4e996948e84c7ab0f33)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+true: annot, bin_annot
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library launchd
+"lib/launchd.cmxs": use_launchd
+<lib/launchd.{cma,cmxa}>: use_liblaunchd_stubs
+<lib/*.ml{,i,y}>: pkg_result
+<lib/*.ml{,i,y}>: pkg_unix
+"lib/launchd_stubs.c": pkg_result
+"lib/launchd_stubs.c": pkg_unix
+# Library launchd_lwt
+"lwt/launchd_lwt.cmxs": use_launchd_lwt
+<lwt/launchd_lwt.{cma,cmxa}>: use_liblaunchd_lwt_stubs
+<lwt/*.ml{,i,y}>: pkg_cstruct
+<lwt/*.ml{,i,y}>: pkg_cstruct.lwt
+<lwt/*.ml{,i,y}>: pkg_lwt
+<lwt/*.ml{,i,y}>: pkg_lwt.unix
+<lwt/*.ml{,i,y}>: pkg_result
+<lwt/*.ml{,i,y}>: pkg_unix
+<lwt/*.ml{,i,y}>: use_launchd
+"lwt/launchd_stubs.c": pkg_cstruct
+"lwt/launchd_stubs.c": pkg_cstruct.lwt
+"lwt/launchd_stubs.c": pkg_lwt
+"lwt/launchd_stubs.c": pkg_lwt.unix
+"lwt/launchd_stubs.c": pkg_result
+"lwt/launchd_stubs.c": pkg_unix
+"lwt/launchd_stubs.c": use_launchd
+# Executable example
+<example/example.{native,byte}>: pkg_result
+<example/example.{native,byte}>: pkg_unix
+<example/example.{native,byte}>: use_launchd
+# Executable example_lwt
+<example/example_lwt.{native,byte}>: pkg_cstruct
+<example/example_lwt.{native,byte}>: pkg_cstruct.lwt
+<example/example_lwt.{native,byte}>: pkg_lwt
+<example/example_lwt.{native,byte}>: pkg_lwt.unix
+<example/example_lwt.{native,byte}>: pkg_result
+<example/example_lwt.{native,byte}>: pkg_unix
+<example/example_lwt.{native,byte}>: use_launchd
+<example/example_lwt.{native,byte}>: use_launchd_lwt
+<example/*.ml{,i,y}>: pkg_cstruct
+<example/*.ml{,i,y}>: pkg_cstruct.lwt
+<example/*.ml{,i,y}>: pkg_lwt
+<example/*.ml{,i,y}>: pkg_lwt.unix
+<example/*.ml{,i,y}>: pkg_result
+<example/*.ml{,i,y}>: pkg_unix
+<example/*.ml{,i,y}>: use_launchd
+<example/*.ml{,i,y}>: use_launchd_lwt
+# OASIS_STOP
