@@ -12,7 +12,16 @@ Library               launchd
   Path:               lib
   Modules:            Launchd
   BuildDepends:       unix, result
+  Findlibname:        launchd
   CSources:           launchd_stubs.c
+
+Document launchd
+  Title:                Launchd bindings
+  Type:                 ocamlbuild (0.3)
+  BuildTools+:          ocamldoc
+  Install:              true
+  XOCamlbuildPath:      lib
+  XOCamlbuildLibraries: launchd
 
 Executable            example
   CompiledObject:     best
