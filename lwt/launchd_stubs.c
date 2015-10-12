@@ -77,7 +77,8 @@ static void *activate_thread(void *data){
   }
   close(state->pipe_writer);
   free(state->name);
-  free(state->listening_fds);
+  /* These are only allocated in the successful path */
+  if (state->listening_fds) free(state->listening_fds);
   return NULL;
 }
 
@@ -92,6 +93,7 @@ value stub_launch_activate_socket(value name) {
 
   struct state *state = (struct state*)malloc(sizeof(struct state));
   if (!state) unix_error(errno, "malloc", Nothing);
+  bzero(state, sizeof(struct state));
 
   state->name = strdup(String_val(name));
   state->pipe_writer = filedes[1];
