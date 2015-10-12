@@ -29,10 +29,10 @@
 /* From the OCaml Unix package */
 extern void unix_error(int errcode, char *cmdname, value cmdarg);
 
-value stub_launch_activate_socket(value name) {
+CAMLprim value stub_launch_activate_socket(value name) {
   CAMLparam1(name);
   CAMLlocal1(result);
-  const char *c_name = strdup(String_val(name));
+  const char *c_name = caml_strdup(String_val(name));
   int *listening_fds = NULL;
   size_t n_listening_fds = 0;
   int err;
