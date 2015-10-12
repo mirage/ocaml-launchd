@@ -1,7 +1,7 @@
 opam-version: "1.2"
 name: "launchd"
 maintainer: "dave@recoil.org"
-version: "0.0"
+version: "1.0"
 authors: [ "David Scott" ]
 license: "ISC"
 homepage: "https://github.com/djs55/ocaml-launchd"
@@ -28,3 +28,5 @@ depends: [
   "oasis" {build}
 ]
 build-doc: ["ocaml" "setup.ml" "-doc"]
+
+available: [ os = "darwin" ]
