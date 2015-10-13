@@ -22,8 +22,8 @@ remove: [["ocamlfind" "remove" "launchd"]]
 
 depends: [
   "result"
-  "lwt"
-  "cstruct"
+  "lwt" {>= "2.4.3"}
+  "cstruct" {>= "0.7.0"}
   "ocamlfind" {build}
   "oasis" {build}
 ]
