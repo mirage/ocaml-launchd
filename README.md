@@ -5,8 +5,8 @@ This library is useful if you wish to make a service which is
 automatically started by launchd.
 
 Please read
-[the Unix API documentation](https://djs55.github.io/ocaml-launchd/launchd) (and
-[the Lwt_unix version](https://djs55.github.io/ocaml-launchd/launchd.lwt)).
+[the Unix API documentation](https://mirage.github.io/ocaml-launchd/launchd) (and
+[the Lwt_unix version](https://mirage.github.io/ocaml-launchd/launchd.lwt)).
 
 Example
 -------
