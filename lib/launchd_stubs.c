@@ -41,7 +41,7 @@ CAMLprim value stub_launch_activate_socket(value name) {
   err = launch_activate_socket(c_name, &listening_fds, &n_listening_fds);
   caml_acquire_runtime_system();
 
-  free((void*)c_name);
+  caml_stat_free((void*)c_name);
 
   switch (err) {
     case 0:
