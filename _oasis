@@ -40,12 +40,14 @@ Document lwt_launchd
   XOCamlbuildLibraries: launchd.lwt
 
 Executable            example
+  Install:            false
   CompiledObject:     best
   Path:               example
   MainIs:             example.ml
   BuildDepends:       launchd
 
 Executable            example_lwt
+  Install:            false
   CompiledObject:     best
   Path:               example
   MainIs:             example_lwt.ml
