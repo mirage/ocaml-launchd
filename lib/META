@@ -1,0 +1,22 @@
+# OASIS_START
+# DO NOT EDIT (digest: b8721de371d6a36995de946a72fbb43e)
+version = "1.2"
+description = "Binding to the launchd API"
+requires = "unix result"
+archive(byte) = "launchd.cma"
+archive(byte, plugin) = "launchd.cma"
+archive(native) = "launchd.cmxa"
+archive(native, plugin) = "launchd.cmxs"
+exists_if = "launchd.cma"
+package "lwt" (
+ version = "1.2"
+ description = "Binding to the launchd API"
+ requires = "launchd lwt lwt.unix cstruct cstruct.lwt"
+ archive(byte) = "launchd_lwt.cma"
+ archive(byte, plugin) = "launchd_lwt.cma"
+ archive(native) = "launchd_lwt.cmxa"
+ archive(native, plugin) = "launchd_lwt.cmxs"
+ exists_if = "launchd_lwt.cma"
+)
+# OASIS_STOP
+

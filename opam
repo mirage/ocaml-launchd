@@ -12,7 +12,6 @@ tags: [
 ]
 
 build: [
-  ["oasis" "setup"]
   [make "PREFIX=%{prefix}%"]
 ]
 
@@ -25,7 +24,7 @@ depends: [
   "lwt" {>= "2.4.3"}
   "cstruct" {>= "0.7.0"}
   "ocamlfind" {build}
-  "oasis" {build}
+  "ocamlbuild" {build}
 ]
 build-doc: ["ocaml" "setup.ml" "-doc"]
 
