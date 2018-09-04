@@ -17,16 +17,16 @@
 
 let _ =
   match Launchd.(error_to_msg (activate_socket "Listener")) with
-  | Result.Ok fds ->
+  | Ok fds ->
     while true do
       let ready_fds, _, _ = Unix.select fds [] [] (-1.) in
       List.iter (fun fd ->
         let client, _ = Unix.accept fd in
-        let message = "Hello there!\n" in
-        let (_: int) = Unix.write client message 0 (String.length message) in
+        let message = Bytes.of_string "Hello there!\n" in
+        let (_: int) = Unix.write client message 0 (Bytes.length message) in
         Unix.close client
       ) ready_fds
     done
-  | Result.Error (`Msg m) ->
+  | Error (`Msg m) ->
     Printf.fprintf stderr "%s\n%!" m;
     exit (-1)

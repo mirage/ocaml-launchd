@@ -14,24 +14,25 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
  *)
-open Lwt
+
+open Lwt.Infix
 
 let t =
   Lwt_launchd.activate_socket "Listener"
   >>= fun x ->
   match Launchd.error_to_msg x with
-  | Result.Ok fds ->
+  | Ok fds ->
     Lwt_list.iter_p (fun fd ->
-      let rec loop () =
+      let loop () =
         Lwt_unix.accept fd
         >>= fun (client, _) ->
-        let message = "Hello there!\n" in
-        Lwt_unix.write client message 0 (String.length message)
+        let message = Bytes.of_string "Hello there!\n" in
+        Lwt_unix.write client message 0 (Bytes.length message)
         >>= fun (_: int) ->
         Lwt_unix.close client in
       loop ()
     ) fds
-  | Result.Error (`Msg m) ->
+  | Error (`Msg m) ->
     Printf.fprintf stderr "%s\n%!" m;
     exit (-1)
 

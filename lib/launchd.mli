@@ -42,11 +42,9 @@ type error = [
 | `Ealready         (** The socket has already been activated *)
 ]
 
-type 'a result = ('a, error) Result.result
+val error_to_msg: ('a, error) result -> ('a, [ `Msg of string ]) result
 
-val error_to_msg: 'a result -> ('a, [ `Msg of string ]) Result.result
-
-val activate_socket: string -> Unix.file_descr list result
+val activate_socket: string -> (Unix.file_descr list, error) result
 (** [activate_socket name]: retrieve the file descriptors for the sockets
     associated with the given [name] in the .plist file. This should be
     called once per invocation; subsequent calls will fail with [`Ealready].

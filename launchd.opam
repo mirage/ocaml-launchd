@@ -1,0 +1,20 @@
+opam-version: "1.2"
+maintainer:   "dave@recoil.org"
+authors:      [ "David Scott" ]
+license:      "ISC"
+homepage:     "https://github.com/mirage/ocaml-launchd"
+dev-repo:     "https://github.com/mirage/ocaml-launchd.git"
+bug-reports:  "https://github.com/mirage/ocaml-launchd/issues"
+
+build: [
+  ["dune" "subst"]{pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+]
+
+depends: [
+  "dune"       {build}
+  "lwt"        {>= "2.4.3"}
+  "cstruct"    {>= "1.0.0"}
+  "cstruct-lwt"
+]
+available: [ os = "darwin" ]
