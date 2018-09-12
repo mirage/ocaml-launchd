@@ -21,7 +21,7 @@
 
 open Launchd
 
-val activate_socket: string -> Lwt_unix.file_descr list result Lwt.t
+val activate_socket: string -> (Lwt_unix.file_descr list, error) result Lwt.t
 (** [activate_socket name]: retrieve the file descriptors for the sockets
     associated with the given [name] in the .plist file. This should be
     called once per invocation; subsequent calls will fail with [`Ealready].
