@@ -6,4 +6,5 @@ os:
   - osx
 env:
   - PACKAGE="launchd" OCAML_VERSION=4.03
+  - PACKAGE="launchd" OCAML_VERSION=4.06
   - PACKAGE="launchd" OCAML_VERSION=4.07
