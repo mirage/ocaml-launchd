@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Lwt_launchd (launchd.Lwt_launchd)</title><link rel="stylesheet" href="../../odoc.css"/><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body><div class="content"><header><nav><a href="../index.html">Up</a> – <a href="../index.html">launchd</a> &#x00BB; Lwt_launchd</nav><h1>Module <code>Lwt_launchd</code></h1><p>Allow an application to be managed by launchd.</p></header><dl><dt class="spec value" id="val-activate_socket"><a href="#val-activate_socket" class="anchor"></a><code><span class="keyword">val </span>activate_socket : string <span>&#45;&gt;</span> (Lwt_unix.file_descr list, <a href="../Launchd/index.html#type-error">Launchd.error</a>) Stdlib.result Lwt.t</code></dt><dd><p><code>activate_socket name</code>: retrieve the file descriptors for the sockets associated with the given <code>name</code> in the .plist file. This should be called once per invocation; subsequent calls will fail with <code>`Ealready</code>.</p><p>For example, in the following .plist, <code>name</code> should be <code>&quot;Listener&quot;</code>:</p><pre><code class="ml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+        &lt;key&gt;Label&lt;/key&gt;
+        &lt;string&gt;org.recoil.dave.anotherd&lt;/string&gt;
+        &lt;key&gt;ProgramArguments&lt;/key&gt;
+        &lt;array&gt;
+                &lt;string&gt;/path/to/binary&lt;/string&gt;
+        &lt;/array&gt;
+        &lt;key&gt;Sockets&lt;/key&gt;
+        &lt;dict&gt;
+
+                &lt;key&gt;Listener&lt;/key&gt;
+                &lt;dict&gt;
+                        &lt;key&gt;SockServiceName&lt;/key&gt;
+                        &lt;string&gt;8081&lt;/string&gt;
+                        &lt;key&gt;SockType&lt;/key&gt;
+                        &lt;string&gt;stream&lt;/string&gt;
+                        &lt;key&gt;SockFamily&lt;/key&gt;
+                        &lt;string&gt;IPv4&lt;/string&gt;
+                &lt;/dict&gt;
+        &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</code></pre><p>Please note that launchd may bind multiple sockets (e.g. one for IPv4 and another for IPv6) and so the application must handle all the sockets returned by the call.</p><p>Please note that this call is blocking.</p><p>This call fails with:</p><ul><li><code>`Enoent name</code> if <code>name</code> could not be found in the .plist.</li><li><code>`Esrch</code> if this process is not being managed by launchd (for example if it is running from a terminal).</li><li><code>`Ealready</code> if the socket has already been activated.</li></ul></dd></dl></div></body></html>
